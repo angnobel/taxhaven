@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Wipe Data
+{% endblock %}
+
+{% block main %}
+    <h4>This will wipe all your forms. No personal information will be retained</h4>
+    <h5><font color=red>Deleted Information cannot be recovered</font></h5>
+    <br>
+    <button class="btn btn-danger" type="button">Delete All Information</button>
+
+    <script>
+    $(document).ready(function(){
+        $("button").click(function(event){
+            $.get('/clear?section=personal');
+            $.get('/clear?section=income');
+            $.get('/clear?section=asset');
+            $.get('/clear?section=deduction');
+            alert("Delete Successful")
+            window.location.replace("/");
+        });
+    });
+    </script>
+{% endblock %}

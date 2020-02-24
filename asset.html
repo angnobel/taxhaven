@@ -1,0 +1,133 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Assets
+{% endblock %}
+
+{% block main %}
+    <h4><p>3. Assets</p></h4>
+    <h6 class = "text-muted">Indicate 0 if not applicable </h6>
+    <br>
+
+    <div class="container">
+        <form class="form-horizontal" action="/asset" method="post">
+                <div class="form-row">
+                    <div class="form-group col-md">
+                        <label for="occupied">1a. Owner-Occupier Residential Propety*<br><sup>Residential propeties that you live in</sup></label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                        {% if progress==1 %}
+                            <input autocomplete="off" class="form-control" name="occupied" id="occupied" placeholder="{{data["occupied"]}}" type="number" min="0" disabled>
+                        {% else %}
+                            <input autocomplete="off" class="form-control" name="occupied" id="occupied" placeholder="Annual Value" type="number" min="0">
+                        {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md">
+                        <label for="nonoccupied"> 1b. Non-Owner Occupied Residential Propety*<br><sup>All residential propeties that you do not live in</sup></label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            {% if progress==1 %}
+                                <input autocomplete="off" class="form-control" name="nonoccupied" id="nonoccupied" placeholder="{{data["nonoccupied"]}}" type="number" min="0" disabled>
+                            {% else %}
+                                <input autocomplete="off" class="form-control" name="nonoccupied" id="nonoccupied" placeholder="Annual Value" type="number" min="0">
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md">
+                        <label for="nonresidential"> 1c. Non-residential Propeties*<br><sup>Commerical Buildings or other non-residential propeties</sup></label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            {% if progress==1 %}
+                                <input autocomplete="off" class="form-control" name="nonresidential" id="nonresidential" placeholder="{{data["nonresidential"]}}" type="number" min="0" disabled>
+                            {% else %}
+                                <input autocomplete="off" class="form-control" name="nonresidential" id="nonresidential" placeholder="Annual Value" type="number" min="0">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <div class="form-group col-md">
+                            <label for="petrol">2a. Petrol Cars*</label>
+                            {% if progress==1 %}
+                                <input autocomplete="off" class="form-control" name="petrol" id="petrol" placeholder="{{data["petrol"]}}" type="number" min="0" disabled>
+                            {% else %}
+                                <input autocomplete="off" class="form-control" name="petrol" id="petrol" placeholder="Engine Capacity" type="number" min="0">
+                            {% endif %}
+                        </div>
+
+
+                        <div class="form-group col-md">
+                            <div class="form-group col-md">
+                                <label for="electric">2c. Electric*</label>
+                                {% if progress==1 %}
+                                    <input autocomplete="off" class="form-control" name="electric" id="electric" placeholder="{{data["electric"]}}" type="number" min="0" disabled>
+                                {% else %}
+                                    <input autocomplete="off" class="form-control" name="electric" id="electric" placeholder="Power Rating" type="number" min="0" step="0.1">
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                    <label for="disel">2b. CNG or Disel Cars*</label>
+                    {% if progress==1 %}
+                        <input autocomplete="off" class="form-control" name="disel" id="disel" placeholder="{{data["disel"]}}" type="number" min="0" disabled>
+                    {% else %}
+                        <input autocomplete="off" class="form-control" name="disel" id="disel" placeholder="Engine Capacity" type="number" min="0">
+                    {% endif %}
+
+                    {% if progress==1 %}
+                        <select id="rating" name="rating" class="custom-select" disabled>
+                        {% if data['rating']==0 %}
+                            <option> NIL </option>
+                        {% elif data['rating']==1 %}
+                            <option> Pre-Euro IV </option>
+                        {% elif data['rating']==2 %}
+                            <option>Euro IV</option>
+                        {% elif data['rating']==2 %}
+                            <option>Euro V or JPN2009</option>
+                        {% endif %}
+                        </select>
+                    {% else %}
+                        <select id="rating" name="rating" class="custom-select">
+                            <option value="0">NIL</option>
+                            <option value="1">Pre-Euro IV</option>
+                            <option value="2">Euro IV</option>
+                            <option value="3">Euro V / JPN2009</option>
+                        </select>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+            {% if progress==0%}
+            <br>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            {% endif %}
+            </form>
+            {% if progress==1%}
+                <br>
+                <button class="btn btn-danger" type="button">Clear Form</button>
+            {% endif %}
+    </div>
+
+    {% if progress==1%}
+        <script>
+            $(document).ready(function(){
+                $("button").click(function(event){
+                    $.get('/clear?section=asset');
+                    alert("Delete Successful")
+                    window.location.replace(location);
+                });
+            });
+        </script>
+    {% endif %}
+{% endblock %}

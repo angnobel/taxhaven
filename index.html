@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+    {% block title %}
+        Homepage
+    {% endblock %}
+
+    {% block main %}
+        <h3>Tax Report Progress</h3>
+        <br>
+
+        <h5><p><a href="/personal">
+        {% if data["personal"] == 0 %}
+        <font color=red>
+        {% else %}
+        <font color=green>
+        {% endif %}
+            1. Personal Information
+        </font></a></p></h5>
+
+        <h5><p><a href="/income">
+        {% if data["income"] == 0 %}
+            <font color=red>
+        {% else %}
+            <font color=green>
+        {% endif %}
+        2. Income
+        </font></p></h5>
+
+        <h5><p><a href="/asset">
+        {% if data["asset"] == 0 %}
+            <font color=red>
+        {% else %}
+            <font color=green>
+        {% endif %}
+            3. Assets
+        </font></p></h5>
+
+        <h5><p><a href="/deduction">
+        {% if data["deduction"] == 0 %}
+            <font color=red>
+        {% else %}
+            <font color=green>
+        {% endif %}
+            4. Deduction
+        </font></p></h5></a>
+    {% if data["personal"]==1 and data["income"]==1 and data["deduction"]==1 and data["asset"]==1 %}
+    <br><br>
+        <a class="btn btn-success" href="/report" role="button">Report</a>
+    {% endif %}
+{% endblock %}

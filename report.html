@@ -1,0 +1,198 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Report
+{% endblock %}
+
+{% block main %}
+<h4> Tax Report </h4>
+<h7 class = "text-muted"> Generated {{date}}</h7>
+<br><br>
+<table class="table table-borderless">
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Citizenship</th>
+    </tr>
+
+    <tr>
+        <td>{{personal["first"] + " " + personal["middle"] + " " + personal["last"]}}</td>
+        <td>{{personal["age"]}}</td>
+        {% if personal['gender']==0 %}
+            <td>Male</td>
+        {% elif personal['gender']==1 %}
+            <td>Female</td>
+        {% elif personal['gender']==2 %}
+            <td>Other</td>
+        {% endif %}
+
+        {% if personal['citizenship']==0 %}
+            <td> Singapore Resident </td>
+        {% elif personal['gender']==1 %}
+            <td>Non-Resident</td>
+        {% endif %}
+    </tr>
+
+    <tr><td></td></tr>
+
+    <tr>
+    <th colspan="4">1. Income</th>
+    </tr>
+    <tr>
+        <th colspan="2">Type</th>
+        <th colspan="1">Source</th>
+        <th colspan="1">Amount</th>
+    </tr>
+    <tr>
+        <td colspan="2">Gross Employment Income</td>
+        <td>{{income["ordinary"]}}</td>
+        <td>${{"{0:.2f}".format(income["ordinaryvalue"])}}</td>
+    </tr>
+    <tr>
+        <td colspan="2">Special Income</td>
+        <td>{{income["special"]}}</td>
+        <td>${{"{0:.2f}".format(income["specialvalue"])}}</td>
+    </tr>
+    <tr>
+        <td colspan="2">Directorship Fees</td>
+        <td>{{income["director"]}}</td>
+        <td>${{"{0:.2f}".format(income["directorvalue"])}}</td>
+    </tr>
+    <tr>
+        <td colspan="2">Other Income</td>
+        <td>{{income["other"]}}</td>
+        <td>${{"{0:.2f}".format(income["othervalue"])}}</td>
+    </tr>
+    <tr>
+        <td colspan="2">Subtotal</td>
+        <td></td>
+        <td><b>${{"{0:.2f}".format(income["ordinaryvalue"]+income["specialvalue"]+income["directorvalue"]+income["directorvalue"]+income["directorvalue"]+income["othervalue"])}}</b></td>
+    </tr>
+    <tr><td></td></tr>
+
+    <tr>
+    <th colspan="4">2. Deductions</th>
+    </tr>
+    <tr>
+        <th colspan="3">Type</th>
+        <th colspan="1">Source</th>
+    </tr>
+    <tr>
+        <td colspan="3">Work Expenses</td>
+        <td>${{"{0:.2f}".format(income["expensevalue"])}}</td>
+    </tr>
+    <tr>
+        <td colspan="3">Charitable Dontations</td>
+        <td>${{"{0:.2f}".format(deduction["donation"])}}</td>
+    </tr>
+    <tr>
+        <td colspan="3">Tax Deduction</td>
+        <td>${{"{0:.2f}".format(deduction["deduction"])}}</td>
+    </tr>
+    <tr>
+        <td colspan="3">Total Income Tax</td>
+        <td>${{"{0:.2f}".format(incometax)}}</td>
+    </tr>
+
+    <tr><td></td></tr>
+
+    <tr>
+        <th colspan="4">3. Asset Taxes</th>
+    </tr>
+    <tr><th colspan="4">Property</th></tr>
+    <tr>
+        <th colspan="2">Type</th>
+        <th colspan="1">Annual Value</th>
+        <th colspan="1">Tax Amount</th>
+    </tr>
+
+    <tr>
+        <td colspan="2">Owner Occupied</td>
+        <td>{{asset["occupied"]}}</td>
+        <td>${{"{0:.2f}".format(occupied)}}</td>
+    </tr>
+
+    <tr>
+        <td colspan="2">Non-Occupied</td>
+        <td>{{asset["nonoccupied"]}}</td>
+        <td>${{"{0:.2f}".format(nonoccupied)}}</td>
+    </tr>
+
+    <tr>
+        <td colspan="2">Non-residential</td>
+        <td>{{asset["nonresidential"]}}</td>
+        <td>${{"{0:.2f}".format(nonresidential)}}</td>
+    </tr>
+
+    <tr>
+        <td colspan="2">Subtotal</td>
+        <td></td>
+        <td><b>${{"{0:.2f}".format(occupied + nonoccupied + nonresidential)}}</b></td>
+    </tr>
+
+    <tr><td></td></tr>
+
+    <tr><th colspan="4">Vehicle</th></tr>
+    <tr>
+        <th colspan="2">Type</th>
+        <th colspan="1">Engine Capacity</th>
+        <th colspan="1">Tax Amount</th>
+    </tr>
+
+    <tr>
+        <td colspan="2">Petrol Vehicle</td>
+        <td>{{asset["petrol"]}}cc</td>
+        <td>${{"{0:.2f}".format(petrol)}}</td>
+    </tr>
+
+    <tr>
+        <td colspan="2">Disel Vechicle</td>
+        <td>{{asset["disel"]}}cc</td>
+        <td>${{"{0:.2f}".format(disel)}}</td>
+    </tr>
+
+    <tr>
+        <td colspan="2">Electric Vechicle</td>
+        <td>{{asset["electric"]}}kW</td>
+        <td>${{"{0:.2f}".format(electric)}}</td>
+    </tr>
+
+    <tr>
+        <td colspan="2">Subtotal</td>
+        <td></td>
+        <td><b>${{"{0:.2f}".format(petrol+disel+electric)}}</b></td>
+    </tr>
+
+    <tr>
+        <td colspan="3"> Nett Tax Amount </td>
+        <td><b>${{"{0:.2f}".format(petrol+disel+electric+occupied + nonoccupied + nonresidential)}}</b></td>
+    </tr>
+
+    <tr><td></td></tr>
+
+    <tr>
+        <th colspan="4">Summary</th>
+    </tr>
+
+    <tr>
+        <td colspan="2">Total Income</td>
+        <td></td>
+        <td>${{"{0:.2f}".format(income["ordinaryvalue"]+income["specialvalue"]+income["directorvalue"]+income["directorvalue"]+income["directorvalue"]+income["othervalue"])}}</td>
+    </tr>
+
+    <tr>
+        <td colspan="2">Total Taxed</td>
+        <td></td>
+        <td>- ${{"{0:.2f}".format(petrol+disel+electric+occupied+nonoccupied+nonresidential+incometax)}}</td>
+    </tr>
+
+    <tr>
+        <td colspan="2">Nett Amount</td>
+        <td></td>
+        <td>${{"{0:.2f}".format((income["ordinaryvalue"]+income["specialvalue"]+income["directorvalue"]+income["directorvalue"]+income["directorvalue"]+income["othervalue"])-(petrol+disel+electric+petrol+occupied+nonoccupied+nonresidential))}}</td>
+    </tr>
+</table>
+
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Deductions
+{% endblock %}
+
+{% block main %}
+    <h4><p>4. Deductions</p></h4>
+    <div class="container">
+        <form class="form-horizontal" action="/deduction" method="post">
+                <div class="form-row">
+                    <div class="form-group col-md">
+                        <label for="deduction">Tax Deductions</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                        {% if progress==1 %}
+                            <input autocomplete="off" class="form-control" name="deduction" id="deduction" placeholder="{{data["deduction"]}}" type="number" min="0" disabled>
+                        {% else %}
+                            <input autocomplete="off" class="form-control" name="deduction" id="deduction" placeholder="Amount" type="number" min="0">
+                        {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md">
+                        <label for="donation"> Charitable Donations</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            {% if progress==1 %}
+                                <input autocomplete="off" class="form-control" name="donation" id="donation" placeholder="{{data["donation"]}}" type="number" min="0" disabled>
+                            {% else %}
+                                <input autocomplete="off" class="form-control" name="donation" id="donation" placeholder="Amount" type="number" min="0">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+        {% if progress==0%}
+            <br>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        {% endif %}
+        </form>
+        {% if progress==1%}
+            <br>
+            <button class="btn btn-danger" type="button">Clear Form</button>
+        {% endif %}
+    </div>
+    {% if progress==1%}
+        <script>
+            $(document).ready(function(){
+                $("button").click(function(event){
+                    $.get('/clear?section=deduction');
+                    alert("Delete Successful")
+                    window.location.replace(location);
+                });
+            });
+        </script>
+    {% endif %}
+{% endblock %}

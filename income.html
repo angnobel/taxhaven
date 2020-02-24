@@ -1,0 +1,177 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Income
+{% endblock %}
+
+{% block main %}
+    <h4><p>2. Yearly Income (After all CPF deductions)</p></h4>
+    <h6 class = "text-muted">Indicate NIL and 0 if not applicable </h6>
+
+    <div class="container">
+        <form class="form-horizontal" action="/income" method="post">
+
+                <h7><p>
+                    1. Nett Ordinary Income* <br>
+                    <sup>Standard Income from employers (After CPF Before Taxes)</sup>
+                </p></h7>
+
+                <div class="form-row">
+                    <div class="form-group col-md">
+                        <label for="ordinary">Source of Income</label>
+                        {% if progress==1 %}
+                            <input autocomplete="off" class="form-control" name="ordinary" id="ordinary" placeholder="{{data["ordinary"]}}" type="text" disabled>
+                        {% else %}
+                            <input autocomplete="off" class="form-control" name="ordinary" id="ordinary" placeholder="Source" type="text" >
+                        {% endif %}
+
+                    </div>
+                    <div class="form-group col-md">
+                        <label for="ordinaryvalue">Amount</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                        {% if progress==1 %}
+                            <input autocomplete="off" class="form-control" name="ordinaryvalue" id="ordinaryvalue" placeholder="{{data["ordinaryvalue"]}}" type="number" disabled>
+                        {% else %}
+                            <input autocomplete="off" class="form-control" name="ordinaryvalue" id="ordinaryvalue" placeholder="Amount" type="number">
+                        {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <h7><p>
+                    2. Special Income* <br>
+                    <sup>Income from rental and stock dividents</sup>
+                </p></h7>
+                <div class="form-row">
+                    <div class="form-group col-md">
+                        <label for="special">Source of Income</label>
+                        {% if progress==1 %}
+                            <input autocomplete="off" class="form-control" name="special" id="special" placeholder="{{data["special"]}}" type="text" disabled>
+                        {% else %}
+                            <input autocomplete="off" class="form-control" name="special" id="special" placeholder="Source" type="text" >
+                        {% endif %}
+
+                    </div>
+                    <div class="form-group col-md">
+                        <label for="specialvalue">Amount</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                        {% if progress==1 %}
+                            <input autocomplete="off" class="form-control" name="specialvalue" id="specialvalue" placeholder="{{data["specialvalue"]}}" type="number" disabled>
+                        {% else %}
+                            <input autocomplete="off" class="form-control" name="specialvalue" id="specialvalue" placeholder="Amount" type="number">
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <h7><p>
+                3. Director Fees* <br>
+                <sup>Does not include director salary</sup>
+                </p></h7>
+                <div class="form-row">
+                    <div class="form-group col-md">
+                        <label for="director">Source of Income</label>
+                        {% if progress==1 %}
+                            <input autocomplete="off" class="form-control" name="director" id="director" placeholder="{{data["director"]}}" type="text" disabled>
+                        {% else %}
+                            <input autocomplete="off" class="form-control" name="director" id="director" placeholder="Source" type="text">
+                        {% endif %}
+
+                    </div>
+                    <div class="form-group col-md">
+                        <label for="directorvalue">Amount</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                        {% if progress==1 %}
+                            <input autocomplete="off" class="form-control" name="directorvalue" id="directorvalue" placeholder="{{data["directorvalue"]}}" type="number" disabled>
+                        {% else %}
+                            <input autocomplete="off" class="form-control" name="directorvalue" id="directorvalue" placeholder="Amount" type="number">
+                        {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+
+                <h7><p>
+                4. Work-Related Expenses* <br>
+                <sup>Expenses for work</sup>
+                </p></h7>
+                <div class="form-row">
+                    <div class="form-group col-md">
+                        <label for="expense">Organisation</label>
+                        {% if progress==1 %}
+                            <input autocomplete="off" class="form-control" name="expense" id="expense" placeholder="{{data["expense"]}}" type="text" disabled>
+                        {% else %}
+                            <input autocomplete="off" class="form-control" name="expense" id="expense" placeholder="Total Expenses" type="text">
+                        {% endif %}
+
+                    </div>
+                    <div class="form-group col-md">
+                        <label for="expensevalue">Total Expense</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                        {% if progress==1 %}
+                            <input autocomplete="off" class="form-control" name="expensevalue" id="expensevalue" placeholder="{{data["expensevalue"]}}" type="number" disabled>
+                        {% else %}
+                            <input autocomplete="off" class="form-control" name="expensevalue" id="expensevalue" placeholder="Total Expense" type="number" >
+                        {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+
+                <h7><p>
+                5. Other Taxable Income* <br>
+                <sup>Income not subjected to CPF (eg. Gifts more than $200)</sup>
+                </p></h7>
+                <div class="form-row">
+                    <div class="form-group col-md">
+                        <label for="other">Source of Income</label>
+                        {% if progress==1 %}
+                            <input autocomplete="off" class="form-control" name="other" id="other" placeholder="{{data["other"]}}" type="text" disabled>
+                        {% else %}
+                            <input autocomplete="off" class="form-control" name="other" id="other" placeholder="Source" type="text">
+                        {% endif %}
+
+                    </div>
+                    <div class="form-group col-md">
+                        <label for="othervalue">Amount</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                        {% if progress==1 %}
+                            <input autocomplete="off" class="form-control" name="othervalue" id="othervalue" placeholder="{{data["othervalue"]}}" type="number" disabled>
+                        {% else %}
+                            <input autocomplete="off" class="form-control" name="othervalue" id="othervalue" placeholder="Amount" type="number" >
+                        {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+
+            {% if progress==0%}
+            <br>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            {% endif %}
+            </form>
+            {% if progress==1%}
+                <br>
+                <button class="btn btn-danger" type="button">Clear Form</button>
+            {% endif %}
+    </div>
+
+    {% if progress==1%}
+        <script>
+            $(document).ready(function(){
+                $("button").click(function(event){
+                    $.get('/clear?section=income');
+                    alert("Delete Successful")
+                    window.location.replace(location);
+                });
+            });
+        </script>
+    {% endif %}
+{% endblock %}
